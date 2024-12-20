@@ -12,11 +12,15 @@ import chalk from "chalk";
     //* This simple code wraps inside this ModuleWrapperFunction 
     const name = "Bhavishaya Khandelwal";
     console.log(chalk.yellow.bold.underline.inverse(name));
-
+    //? Module code actually lives in here 
 
 }); 
 //? This outer parenthesis is a grouping operator
 //* Basically node binds all our code that we write inside this Module Wrapper Function 
+
+
+
+
 
 
 
@@ -33,4 +37,18 @@ import chalk from "chalk";
 })();
 
 
-console.log(x); //todo --- OUTPUT : x is not defined
+// console.log(x); //todo --- OUTPUT : x is not defined
+
+
+
+
+
+
+function getData() {
+    var a = 10;
+    console.log(a);
+}
+
+getData();
+
+console.log(a);   //todo --- OUTPUT : x is not defined 

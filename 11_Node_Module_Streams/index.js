@@ -36,40 +36,42 @@
 
 
 
-const http = require("http");
 const fs = require("fs");
+const http = require("http");
 const EventEmitter = require("events");
-const event = new EventEmitter();
+const emit = new EventEmitter();
+
 
 
 const server = http.createServer();
 
-server.on("request", (req, res) => {
-    // fs.readFile("input.txt", "utf-8", (err, data) => {
-    //     if(err) {
-    //         console.log(err);
-    //     }
-    //     else {
-    //         res.end(data);
-    //     }
-    // });
 
 
-    //todo -- Show using streams 
-    const rstream = fs.createReadStream("input.txt");
-    rstream.on("data", (chunkData) => {
-        res.write(chunkData);
-    });
+//* THis is the normal way -> 
+// server.on('request', (req, res) => {
+//     fs.readFile("input.txt", function(err, data) {
+//         if(err) console.log(err);
+//         console.log(data.toString());
+//         res.end(data.toString());
+//     });
+// });
 
-    rstream.on("end", () => {
-        res.end();
-    });
 
-    rstream.on("error", () => {
-        console.log(error);
-        res.end("File not found");
+//* Let's checkout streaming way ->
+server.on('request', (req, res) => {
+    const rstream = fs.createReadStream('input.txt');
+    rstream.on('data', (chunkdata) => {
+        res.write(chunkdata);
     });
     
+    rstream.on('end', () => {
+        res.end();
+    });
+    
+    rstream.on('error', (err) => {
+        console.log(err);
+        res.end("File Not Found");
+    })
 });
 
 

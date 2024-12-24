@@ -1,40 +1,37 @@
 //! stream.pipe() :
 //? stream.pipe(), the method used to take a readable stream and connect it to a writable stream.
 
-const http = require("http");
+
 const fs = require("fs");
+const http = require("http");
 const EventEmitter = require("events");
-const event = new EventEmitter();
+const emit = new EventEmitter();
 
 
 const server = http.createServer();
 
 server.on("request", (req, res) => {
+    const rstream = fs.createReadStream("input.txt");
 
-    //todo -- Show using streams 
-
-    // const rstream = fs.createReadStream("input.txt");
-    // rstream.on("data", (chunkData) => {
-    //     res.write(chunkData);
+    //* Method - 2
+    // rstream.on('data', (chunkdata) => {
+    //     res.writable(chunkdata);
     // });
 
-    // rstream.on("end", () => {
+    // rstream.on('end', () => {
     //     res.end();
     // });
 
-    // rstream.on("error", () => {
-    //     console.log(error);
-    //     res.end("File not found");
+    // rstream.on('error', (err) => {
+    //     console.log(err);
+    //     res.end("File Not Found");
     // });
 
 
-    //todo --- 3rd Way 
-    const rstream = fs.createReadStream("input.txt");
+
+    //* Method - 3
     rstream.pipe(res);
-    
 });
 
 
-server.listen(8000, "127.0.0.1", () => {
-    console.log("Listening on port number 8000");
-});
+server.listen(8000, "127.0.0.1");

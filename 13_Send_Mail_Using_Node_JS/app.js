@@ -1,27 +1,25 @@
 const express = require("express");
 const app = express();
 let PORT = 5000;
-const sendMail = require("../0.1_CONTROLLERS/sendMail.js");
 
+const sendMail = require("../0.1_CONTROLLERS/sendMail.js");
 
 app.get("/", (req, res) => {
     res.send("I am a server");
 });
 
-app.get("/sendemail", () => {
-    sendMail;
-});
-
+app.get("/mail", sendMail);
 
 const start = async () => {
     try {
         app.listen(PORT, () => {
-            console.log(`I am live in port number ${PORT}`);
+            console.log(`I am live in port no. ${PORT}`);
         });
     }
-    catch(error) {
-        console.log(error);
+    catch(err) {
+        console.log(err);
     }
-}
+};
+
 
 start();
